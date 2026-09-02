@@ -1,0 +1,10 @@
+{
+  "mapped_residues": 287,
+  "contact_cutoff": 8.0,
+  "transition_margin": 1.0,
+  "retained_contacts": 777,
+  "gained_contacts": 4,
+  "lost_contacts": 2,
+  "inter_chain_gained_contacts": 0,
+  "inter_chain_lost_contacts": 0
+}

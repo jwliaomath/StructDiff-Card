@@ -1,0 +1,9 @@
+{
+  "mobile_length": 574,
+  "reference_length": 287,
+  "aligned_length": 287,
+  "rmsd": 0.89,
+  "sequence_identity": 1.0,
+  "tm_mobile": 0.49489,
+  "tm_reference": 0.98229
+}

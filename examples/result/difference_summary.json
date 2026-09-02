@@ -1,0 +1,9 @@
+{
+  "matched_residues": 287,
+  "median_displacement": 0.4682197299838455,
+  "p90_displacement": 1.3441805820341224,
+  "max_displacement": 5.2838595976636045,
+  "hotspot_threshold": 2.0,
+  "residues_above_threshold": 10,
+  "fraction_above_threshold": 0.03484320557491289
+}

@@ -1,0 +1,5 @@
+rank,mobile_chain,reference_chain,mobile_start,mobile_end,reference_start,reference_end,peak_mobile_residue,peak_reference_residue,mean_displacement,peak_displacement,residue_count,residues_above_threshold
+1,C,A,138,141,138,141,141,141,2.696280682937294,5.2838595976636045,4,2
+2,D,B,143,146,143,146,146,146,2.3649523775474597,4.214264721924794,4,2
+3,D,B,92,99,92,99,94,94,1.9632962907220477,2.55383295748693,8,4
+4,C,A,86,91,86,91,88,88,1.6096131865794767,2.204614173215558,6,2

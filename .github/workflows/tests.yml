@@ -1,0 +1,53 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Compile pinned US-align source
+        run: |
+          echo "5e05ddcd66d7ca7553954b7df94e938fcfbf1a5d94a81edf5b04e80f8d8913f5  vendor/USalign/USalign.cpp" | sha256sum --check -
+          g++ -O3 -ffast-math -o /tmp/USalign vendor/USalign/USalign.cpp
+          status=0
+          /tmp/USalign -v > /tmp/usalign-version.txt 2>&1 || status=$?
+          cat /tmp/usalign-version.txt
+          test "$status" -eq 1
+          grep -q "Version 20260527" /tmp/usalign-version.txt
+      - name: Install package
+        run: pip install ".[dev]"
+      - name: Test core and real multichain example
+        env:
+          USALIGN_BIN: /tmp/USalign
+        run: pytest --cov=structdiff_card --cov-report=term-missing
+      - name: Smoke-test CLI exports
+        env:
+          USALIGN_BIN: /tmp/USalign
+        run: structdiff compare examples/input/2HHB.pdb examples/input/1HHO.pdb -o /tmp/result
+
+  site:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: site/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build

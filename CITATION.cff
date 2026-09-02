@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use StructDiff Card, please cite this software and US-align."
+title: "StructDiff Card"
+type: software
+version: 0.3.0
+date-released: 2026-09-02
+authors:
+  - family-names: Liao
+    given-names: Junwen
+repository-code: "https://github.com/jwliaomath/StructDiff-Card"
+url: "https://jwliaomath.github.io/StructDiff-Card/"
+license: MIT
+keywords:
+  - structural biology
+  - protein structure
+  - cryo-EM
+  - US-align
+  - structural alignment
+references:
+  - type: article
+    title: "US-align: universal structure alignments of proteins, nucleic acids, and macromolecular complexes"
+    authors:
+      - family-names: Zhang
+        given-names: Chengxin
+      - family-names: Shine
+        given-names: Morgan
+      - family-names: Pyle
+        given-names: Anna Marie
+      - family-names: Zhang
+        given-names: Yang
+    journal: Nature Methods
+    year: 2022
+    volume: 19
+    start: 1109
+    end: 1115
+    doi: 10.1038/s41592-022-01585-1

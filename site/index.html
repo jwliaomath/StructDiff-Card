@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="StructDiff Card explains multi-chain structure differences with auditable chain mapping, residue displacement, gaps, and publication-ready exports." />
+    <meta property="og:title" content="StructDiff Card — see where the assembly moves" />
+    <meta property="og:description" content="A local-first US-align interface with a complete interactive example." />
+    <meta property="og:image" content="./demo/og-card.png" />
+    <meta name="theme-color" content="#07131b" />
+    <title>StructDiff Card — multi-chain structure comparison</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="StructDiff Card home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>StructDiff Card</span>
+        </a>
+        <nav aria-label="Main navigation">
+          <a href="#example">Example</a>
+          <a href="#method">Method</a>
+          <a href="#downloads">Downloads</a>
+          <a class="nav-github" href="https://github.com/jwliaomath/StructDiff-Card">GitHub ↗</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero page-shell">
+          <div class="hero-copy">
+            <p class="eyebrow">Local-first · US-align powered</p>
+            <h1>See where the<br />assembly moves.</h1>
+            <p class="dek">Two structures become an auditable chain map, contact-change view, motion decomposition, spatial difference patches, and publication-ready card. Different lengths stay visible.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="#example">Explore the full result</a>
+              <a class="button secondary" href="#run-local">Run locally</a>
+            </div>
+          </div>
+          <div class="hero-proof" aria-label="Project principles">
+            <div><strong>1 transform</strong><span>for the whole assembly</span></div>
+            <div><strong>0 uploads</strong><span>for your private structures</span></div>
+            <div><strong>10+ exports</strong><span>from one comparison</span></div>
+          </div>
+        </section>
+
+        <section class="demo-reel page-shell" aria-labelledby="demo-reel-title">
+          <div>
+            <p class="eyebrow">15-second walkthrough</p>
+            <h2 id="demo-reel-title">The whole result,<br />before you install.</h2>
+            <p>Rotation, mapping, displacement, unmatched chains, exports, and the local command—captured from the same deterministic example data used below.</p>
+          </div>
+          <figure>
+            <img src="./demo/structdiff-demo.gif" alt="15-second walkthrough of the StructDiff Card result" />
+            <figcaption>15.0 s · 2HHB → 1HHO · generated from committed outputs</figcaption>
+          </figure>
+        </section>
+
+        <section id="example" class="example-section">
+          <div class="page-shell">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Complete precomputed example</p>
+                <h2>2HHB T state → 1HHO R state</h2>
+              </div>
+              <p>This intentionally compares a four-chain coordinate model with a two-chain asymmetric unit. The unmatched-chain warning is part of the scientific result, not an error to hide.</p>
+            </div>
+
+            <div class="metric-strip" aria-label="Global alignment metrics">
+              <article><span>TM-score · reference</span><strong id="metric-tm">—</strong></article>
+              <article><span>Global RMSD</span><strong id="metric-rmsd">—</strong></article>
+              <article><span>Aligned / reference</span><strong id="metric-aligned">—</strong></article>
+              <article><span>Mapped chains</span><strong id="metric-chains">—</strong></article>
+            </div>
+
+            <div class="viewer-layout">
+              <div class="viewer-panel">
+                <div class="viewer-toolbar">
+                  <div class="legend">
+                    <span><i class="dot reference"></i>reference ghost</span>
+                    <span class="difference-legend"><i></i>aligned residual · 0 → ≥5 Å</span>
+                    <span><i class="dot unmatched"></i>unmatched chains</span>
+                    <span><i class="dot vector"></i>difference vectors</span>
+                  </div>
+                  <div class="viewer-actions">
+                    <label><input id="toggle-difference" type="checkbox" checked /> difference colors</label>
+                    <label><input id="toggle-unmatched" type="checkbox" checked /> unmatched</label>
+                    <button id="spin-button" type="button">Spin</button>
+                    <button id="reset-view" type="button">Reset</button>
+                  </div>
+                </div>
+                <div id="molecule-viewer" role="img" aria-label="Interactive overlay of 2HHB and 1HHO"></div>
+                <p class="viewer-note">Blue is near, red is far · yellow spokes show direction above the adaptive threshold · drag to rotate</p>
+              </div>
+
+              <aside class="mapping-panel">
+                <div class="panel-heading">
+                  <span>Chain mapping</span>
+                  <span class="engine-tag">US-align −mm 1</span>
+                </div>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>Mobile</th><th>Reference</th><th>TM-ref</th><th>RMSD</th></tr></thead>
+                    <tbody id="chain-table"></tbody>
+                  </table>
+                </div>
+                <div id="unmatched-callout" class="unmatched-callout"></div>
+                <div class="interpretation">
+                  <p class="mini-label">Interpretation guardrail</p>
+                  <p>Per-residue values below use this single complex-level transform. No chain is secretly refitted.</p>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section class="analysis-section page-shell">
+          <div class="section-heading compact">
+            <div><p class="eyebrow">Difference localization</p><h2>Where does the fit diverge?</h2></div>
+            <p>Nearby high-residual residues are grouped into coherent regions and expanded by two residues for context. These are global-fit disagreements, not automatic claims of flexibility.</p>
+          </div>
+          <div class="difference-overview">
+            <div class="difference-stats">
+              <article><span>Median residual</span><strong id="difference-median">—</strong></article>
+              <article><span>90th percentile</span><strong id="difference-p90">—</strong></article>
+              <article><span>Largest residual</span><strong id="difference-max">—</strong></article>
+              <article><span id="difference-threshold-label">Above threshold</span><strong id="difference-high">—</strong></article>
+            </div>
+            <div class="residual-scale"><span>near · 0 Å</span><i></i><span>far · ≥5 Å</span></div>
+            <div class="table-wrap hotspot-table-wrap">
+              <table>
+                <thead><tr><th>#</th><th>Chain map</th><th>Mobile region</th><th>Reference region</th><th>Mean</th><th>Peak</th></tr></thead>
+                <tbody id="hotspot-table"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="chart-frame">
+            <svg id="displacement-chart" role="img" aria-label="Per-residue displacement chart"></svg>
+            <div id="chart-tooltip" class="chart-tooltip" hidden></div>
+          </div>
+        </section>
+
+        <section class="advanced-section page-shell">
+          <div class="section-heading compact">
+            <div><p class="eyebrow">Structural explanation</p><h2>What changed, and how?</h2></div>
+            <p>Three complementary views distinguish contact rewiring, whole-chain motion, and spatially connected difference patches. They remain diagnostics of the selected correspondence—not automatic mechanistic claims.</p>
+          </div>
+          <div class="advanced-grid">
+            <article class="analysis-card contact-card">
+              <div class="card-heading"><div><span>01</span><h3>Gained / lost contacts</h3></div><p>8 Å representative-atom contacts with a 1 Å transition margin.</p></div>
+              <div class="contact-stats">
+                <div><span>Gained</span><strong id="contact-gained">—</strong></div>
+                <div><span>Lost</span><strong id="contact-lost">—</strong></div>
+                <div><span>Inter-chain</span><strong id="contact-interchain">—</strong></div>
+              </div>
+              <svg id="contact-map" role="img" aria-label="Map of gained and lost residue contacts"></svg>
+              <div class="contact-key"><span><i class="gained"></i>gained in mobile</span><span><i class="lost"></i>lost from mobile</span></div>
+            </article>
+            <article class="analysis-card motion-card">
+              <div class="card-heading"><div><span>02</span><h3>Rigid-body vs internal</h3></div><p>A diagnostic chain-local refit separates pose disagreement from remaining deformation.</p></div>
+              <div id="motion-bars" class="motion-bars"></div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Chain</th><th>Rigid</th><th>Internal</th><th>Pattern</th></tr></thead>
+                  <tbody id="motion-table"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+          <article class="analysis-card patch-card">
+            <div class="card-heading"><div><span>03</span><h3>3D spatial difference patches</h3></div><p>High-residual residues within 10 Å are grouped even when they are distant in sequence or cross a chain interface. P labels mark multi-residue patches in the viewer.</p></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Patch</th><th>Members</th><th>Chain(s)</th><th>Mean</th><th>Peak</th><th>Spatial radius</th></tr></thead>
+                <tbody id="patch-table"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section class="track-section page-shell">
+          <div class="section-heading compact">
+            <div><p class="eyebrow">Coverage audit</p><h2>Gaps and unmatched chains remain first-class.</h2></div>
+            <div class="track-key"><span class="matched">matched</span><span class="only-mobile">only mobile</span><span class="only-reference">only reference</span></div>
+          </div>
+          <div id="gap-track" class="gap-track"></div>
+        </section>
+
+        <section id="downloads" class="publication-section">
+          <div class="page-shell publication-grid">
+            <div>
+              <p class="eyebrow">Publication card</p>
+              <h2>One comparison,<br />ready to share.</h2>
+              <p class="section-copy">The card carries the score normalization, mapping, largest displacement, unmatched chains, and engine version—context that a lone RMSD screenshot usually loses.</p>
+              <div class="download-list">
+                <a href="./downloads/chain_mapping.csv" download><span>Chain mapping</span><small>CSV · assignment and coverage</small><b>↓</b></a>
+                <a href="./downloads/residue_mapping.csv" download><span>Residue mapping</span><small>CSV · matched and gap rows</small><b>↓</b></a>
+                <a href="./downloads/difference_hotspots.csv" download><span>Difference regions</span><small>CSV · coherent hotspot windows</small><b>↓</b></a>
+                <a href="./downloads/difference_summary.json" download><span>Difference summary</span><small>JSON · threshold and distribution</small><b>↓</b></a>
+                <a href="./downloads/contact_changes.csv" download><span>Contact changes</span><small>CSV · gained and lost residue pairs</small><b>↓</b></a>
+                <a href="./downloads/contact_summary.json" download><span>Contact summary</span><small>JSON · definition and counts</small><b>↓</b></a>
+                <a href="./downloads/motion_decomposition.csv" download><span>Motion decomposition</span><small>CSV · rigid and internal components</small><b>↓</b></a>
+                <a href="./downloads/spatial_patches.csv" download><span>Spatial patches</span><small>CSV · 3D-connected hotspots</small><b>↓</b></a>
+                <a href="./downloads/per_residue_displacement.svg" download><span>Displacement plot</span><small>SVG · vector export</small><b>↓</b></a>
+                <a href="./downloads/publication_card.svg" download><span>Publication card</span><small>SVG · editable vector</small><b>↓</b></a>
+                <a href="./downloads/reference.pdb" download><span>Reference structure</span><small>PDB · PyMOL-ready companion</small><b>↓</b></a>
+                <a href="./downloads/mobile_aligned_to_reference.pdb" download><span>Aligned mobile</span><small>PDB · global transform applied</small><b>↓</b></a>
+                <a href="./downloads/mobile_aligned_difference.pdb" download><span>Difference-coded structure</span><small>PDB · residual stored in B-factor</small><b>↓</b></a>
+                <a href="./downloads/view_difference.pml" download><span>PyMOL view</span><small>PML · ready-made difference colors</small><b>↓</b></a>
+              </div>
+            </div>
+            <figure class="card-preview">
+              <img src="./downloads/publication_card.svg" alt="StructDiff publication card for the 2HHB to 1HHO example" />
+              <figcaption>Generated deterministically from the result JSON.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section id="method" class="method-section page-shell">
+          <div class="section-heading compact">
+            <div><p class="eyebrow">Method</p><h2>Correspondence before distance.</h2></div>
+            <p>Kabsch is not the missing piece when residue counts differ. Correspondence is. StructDiff Card delegates structural alignment and chain assignment to US-align, then makes the consequences inspectable.</p>
+          </div>
+          <ol class="method-flow">
+            <li><span>01</span><strong>Parse</strong><p>Preserve chain IDs and coordinate residue IDs from PDB/mmCIF.</p></li>
+            <li><span>02</span><strong>Align</strong><p>Run monomer or multi-chain US-align with one global transform.</p></li>
+            <li><span>03</span><strong>Audit</strong><p>Expose chain pairs, unmatched chains, gaps, coverage, and provenance.</p></li>
+            <li><span>04</span><strong>Explain</strong><p>Localize residuals, contact changes, chain motion, and 3D patches.</p></li>
+          </ol>
+          <div class="scope-note">
+            <strong>Scope, honestly stated.</strong>
+            <p>Alignment anchors are polymer representative atoms (protein Cα; nucleic-acid C3′). Ligands can move with the global transform but are not treated as equivalent correspondence anchors. Symmetric assemblies can have multiple valid mappings—inspect the table.</p>
+          </div>
+        </section>
+
+        <section id="run-local" class="run-section">
+          <div class="page-shell run-grid">
+            <div>
+              <p class="eyebrow light">Private by default</p>
+              <h2>Run locally in one command.</h2>
+              <p>Your unpublished models stay on your machine. No GPU, API key, or author-operated server is required.</p>
+            </div>
+            <div class="command-card">
+              <div><span>Terminal</span><button id="copy-command" type="button">Copy</button></div>
+              <code id="docker-command">docker run --rm -p 8501:8501 ghcr.io/jwliaomath/structdiff-card:latest</code>
+              <p>Then open <strong>http://localhost:8501</strong></p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer page-shell">
+        <div><strong>StructDiff Card</strong><p>Explain where structures differ.</p></div>
+        <div><p>Powered by US-align and 3Dmol.js.</p><p>Example coordinates: RCSB PDB 2HHB and 1HHO.</p></div>
+        <a href="https://github.com/jwliaomath/StructDiff-Card">Source on GitHub ↗</a>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+* text=auto eol=lf
+*.pdb text eol=lf whitespace=-blank-at-eol
+*.cif text eol=lf
+*.mmcif text eol=lf
+*.csv text eol=lf
+*.json text eol=lf
+*.svg text eol=lf
+*.gif binary
+*.png binary
+vendor/USalign/USalign.cpp text eol=lf whitespace=-blank-at-eol

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#07131b"/>
+  <rect x="64" y="58" width="8" height="74" fill="#49d6c5"/>
+  <text x="96" y="90" fill="#8aa4b2" font-family="Arial, sans-serif" font-size="22" letter-spacing="3">STRUCTDIFF CARD · MULTI-CHAIN ALIGNMENT</text>
+  <text x="96" y="137" fill="#f1f7f5" font-family="Georgia, serif" font-size="42">2HHB.pdb → 1HHO.pdb</text>
+  <line x1="64" y1="176" x2="1136" y2="176" stroke="#28424e" stroke-width="2"/>
+  <text x="72" y="235" fill="#8aa4b2" font-family="Arial, sans-serif" font-size="18">TM-SCORE (REFERENCE)</text>
+  <text x="72" y="306" fill="#49d6c5" font-family="Georgia, serif" font-size="62">0.982</text>
+  <text x="420" y="235" fill="#8aa4b2" font-family="Arial, sans-serif" font-size="18">GLOBAL RMSD</text>
+  <text x="420" y="306" fill="#f1f7f5" font-family="Georgia, serif" font-size="62">0.89<tspan font-size="26"> Å</tspan></text>
+  <text x="735" y="235" fill="#8aa4b2" font-family="Arial, sans-serif" font-size="18">ALIGNED / REFERENCE</text>
+  <text x="735" y="306" fill="#f1f7f5" font-family="Georgia, serif" font-size="62">287<tspan font-size="26"> / 287</tspan></text>
+  <rect x="64" y="353" width="1072" height="1" fill="#28424e"/>
+  <text x="72" y="410" fill="#8aa4b2" font-family="Arial, sans-serif" font-size="18">CHAIN MAPPING</text>
+  <text x="72" y="448" fill="#f1f7f5" font-family="Arial, sans-serif" font-size="28">C→A · D→B</text>
+  <text x="72" y="503" fill="#8aa4b2" font-family="Arial, sans-serif" font-size="18">STRONGEST COHERENT DIFFERENCE REGION</text>
+  <text x="72" y="541" fill="#ff8a5c" font-family="Arial, sans-serif" font-size="28">C:138–141 ↔ A:138–141 · peak 5.28 Å</text>
+  <text x="72" y="596" fill="#8aa4b2" font-family="Arial, sans-serif" font-size="18">UNMATCHED CHAINS</text>
+  <text x="270" y="596" fill="#f1f7f5" font-family="Arial, sans-serif" font-size="21">A, B</text>
+  <text x="1128" y="628" fill="#5f7a87" text-anchor="end" font-family="Arial, sans-serif" font-size="16">US-align 20260527 · one global assembly transform</text>
+</svg>

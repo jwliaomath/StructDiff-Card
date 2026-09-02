@@ -1,0 +1,3 @@
+mobile_chain,reference_chain,mobile_length,reference_length,aligned_length,rmsd,tm_mobile,tm_reference,sequence_identity,coverage_mobile,coverage_reference
+C,A,141,141,141,0.83,0.97278,0.97278,1.0,1.0,1.0
+D,B,146,146,146,0.93,0.96369,0.96369,1.0,1.0,1.0

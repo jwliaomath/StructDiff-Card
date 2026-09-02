@@ -1,0 +1,50 @@
+
+Name of Structure_1: E:\codex\brainstorm\StructDiff-Card\examples\input\2HHB.pdb:C:D:A:B (to be superimposed onto Structure_2)
+Name of Structure_2: E:\codex\brainstorm\StructDiff-Card\examples\input\1HHO.pdb:A:B::
+Length of Structure_1: 574 residues
+Length of Structure_2: 287 residues
+
+Aligned length= 287, RMSD=   0.89, Seq_ID=n_identical/n_aligned= 1.000
+TM-score= 0.49489 (normalized by length of Structure_1: L=574, d0=8.41)
+TM-score= 0.98229 (normalized by length of Structure_2: L=287, d0=6.23)
+(You should use TM-score normalized by length of the reference structure)
+
+(":" denotes residue pairs of d < 5.0 Angstrom, "." denotes other aligned residues)
+VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKYR*VHLTPEEKSAVTALWGKVNVDEVGGEALGRLLVVYPWTQRFFESFGDLSTPDAVMGNPKVKAHGKKVLGAFSDGLAHLDNLKGTFATLSELHCDKLHVDPENFRLLGNVLVCVLAHHFGKEFTPPVQAAYQKVVAGVANALAHKYH*VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKYR*VHLTPEEKSAVTALWGKVNVDEVGGEALGRLLVVYPWTQRFFESFGDLSTPDAVMGNPKVKAHGKKVLGAFSDGLAHLDNLKGTFATLSELHCDKLHVDPENFRLLGNVLVCVLAHHFGKEFTPPVQAAYQKVVAGVANALAHKYH*
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::.*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*                                                                                                                                             *                                                                                                                                                  *
+VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKYR*VHLTPEEKSAVTALWGKVNVDEVGGEALGRLLVVYPWTQRFFESFGDLSTPDAVMGNPKVKAHGKKVLGAFSDGLAHLDNLKGTFATLSELHCDKLHVDPENFRLLGNVLVCVLAHHFGKEFTPPVQAAYQKVVAGVANALAHKYH*---------------------------------------------------------------------------------------------------------------------------------------------*--------------------------------------------------------------------------------------------------------------------------------------------------*
+
+# End of alignment for full complex. The following blocks list alignments for individual chains.
+
+Name of Structure_1: E:\codex\brainstorm\StructDiff-Card\examples\input\2HHB.pdb:C (to be superimposed onto Structure_2)
+Name of Structure_2: E:\codex\brainstorm\StructDiff-Card\examples\input\1HHO.pdb:A
+Length of Structure_1: 141 residues
+Length of Structure_2: 141 residues
+
+Aligned length= 141, RMSD=   0.83, Seq_ID=n_identical/n_aligned= 1.000
+TM-score= 0.97278 (normalized by length of Structure_1: L=141, d0=4.42)
+TM-score= 0.97278 (normalized by length of Structure_2: L=141, d0=4.42)
+(You should use TM-score normalized by length of the reference structure)
+
+(":" denotes residue pairs of d < 5.0 Angstrom, "." denotes other aligned residues)
+VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKYR
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::.
+VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKYR
+
+
+Name of Structure_1: E:\codex\brainstorm\StructDiff-Card\examples\input\2HHB.pdb:D (to be superimposed onto Structure_2)
+Name of Structure_2: E:\codex\brainstorm\StructDiff-Card\examples\input\1HHO.pdb:B
+Length of Structure_1: 146 residues
+Length of Structure_2: 146 residues
+
+Aligned length= 146, RMSD=   0.93, Seq_ID=n_identical/n_aligned= 1.000
+TM-score= 0.96369 (normalized by length of Structure_1: L=146, d0=4.50)
+TM-score= 0.96369 (normalized by length of Structure_2: L=146, d0=4.50)
+(You should use TM-score normalized by length of the reference structure)
+
+(":" denotes residue pairs of d < 5.0 Angstrom, "." denotes other aligned residues)
+VHLTPEEKSAVTALWGKVNVDEVGGEALGRLLVVYPWTQRFFESFGDLSTPDAVMGNPKVKAHGKKVLGAFSDGLAHLDNLKGTFATLSELHCDKLHVDPENFRLLGNVLVCVLAHHFGKEFTPPVQAAYQKVVAGVANALAHKYH
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+VHLTPEEKSAVTALWGKVNVDEVGGEALGRLLVVYPWTQRFFESFGDLSTPDAVMGNPKVKAHGKKVLGAFSDGLAHLDNLKGTFATLSELHCDKLHVDPENFRLLGNVLVCVLAHHFGKEFTPPVQAAYQKVVAGVANALAHKYH
+
+#Total CPU time is  0.26 seconds
