@@ -7,4 +7,4 @@
 *.svg text eol=lf
 *.gif binary
 *.png binary
-vendor/USalign/USalign.cpp text eol=lf whitespace=-blank-at-eol
+vendor/USalign/USalign.cpp -text !eol whitespace=-blank-at-eol
