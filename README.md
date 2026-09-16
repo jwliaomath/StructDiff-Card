@@ -29,8 +29,20 @@ docker run --rm -p 8501:8501 ghcr.io/jwliaomath/structdiff-card:latest
 Open <http://localhost:8501>. No GPU or API key is required. Suggested baseline:
 2 CPU, 2–4 GB RAM, and about 1 GB free disk.
 
-Until the first GHCR release is published, clone the repository and use the
-same one-command workflow from source:
+US-align has a 30-minute default runtime limit. The web app exposes the limit under
+**Advanced settings**; set it to `0` for an unlimited run on exceptionally large
+complexes. The Docker default can also be changed explicitly:
+
+```bash
+docker run --rm -e STRUCTDIFF_TIMEOUT_SECONDS=0 -p 8501:8501 \
+  ghcr.io/jwliaomath/structdiff-card:latest
+```
+
+Uploads up to 100 MB are accepted. Source-based Docker Compose runs provide a 1 GB
+in-memory `/tmp`; temporary inputs and results are removed after analysis and are not
+persisted unless you download them.
+
+To build the current source tree locally instead of using the published GHCR image:
 
 ```bash
 docker compose up --build
@@ -97,6 +109,9 @@ Compare two coordinate files:
 ```bash
 uv run structdiff compare model.cif reference.pdb -o result
 ```
+
+The CLI uses the same 30-minute default. Pass `--timeout 0` for no limit or, for
+example, `--timeout 7200` for two hours.
 
 Use a biological assembly encoded across PDB models and override an ambiguous
 chain mapping:

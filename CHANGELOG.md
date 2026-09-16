@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 — 2026-09-16
+
+- Raise the default US-align runtime limit from 120 seconds to 30 minutes.
+- Add web, CLI, and `STRUCTDIFF_TIMEOUT_SECONDS` controls; `0` disables the limit.
+- Report US-align timeouts with an actionable message instead of a raw exception.
+- Raise the web upload limit to 100 MB and the Compose temporary workspace to 1 GB.
+- Keep mobile and reference uploads separate when their filenames are identical.
+
 ## 0.3.0 — 2026-09-02
 
 - Add stable gained/lost representative-atom contact analysis and contact map.

@@ -3,11 +3,13 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import sys
 from pathlib import Path
 
 from .analysis import compare_structures
 from .export import write_bundle
-from .usalign import get_version, locate_usalign
+from .settings import configured_timeout_seconds, validate_timeout_seconds
+from .usalign import USAlignTimeoutError, get_version, locate_usalign
 
 
 def _chain_mapping(value: str) -> list[tuple[str, str]]:
@@ -23,8 +25,21 @@ def _chain_mapping(value: str) -> list[tuple[str, str]]:
     return pairs
 
 
+def _timeout_seconds(value: str) -> int:
+    try:
+        timeout = int(value)
+        validate_timeout_seconds(timeout)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(str(error)) from error
+    return timeout
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="structdiff", description="Explain where structures differ")
+    try:
+        default_timeout = configured_timeout_seconds()
+    except ValueError as error:
+        parser.error(str(error))
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     compare = subparsers.add_parser("compare", help="Compare two PDB/mmCIF structures")
@@ -39,7 +54,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     compare.add_argument("--chain-map", type=_chain_mapping, default=[])
     compare.add_argument("--usalign-bin", type=Path, default=os.environ.get("USALIGN_BIN"))
-    compare.add_argument("--timeout", type=int, default=120)
+    compare.add_argument(
+        "--timeout",
+        type=_timeout_seconds,
+        default=default_timeout,
+        metavar="SECONDS",
+        help=f"US-align runtime limit (default: {default_timeout}; 0 disables the limit)",
+    )
 
     subparsers.add_parser("doctor", help="Check the local US-align installation")
     return parser
@@ -56,14 +77,18 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({"ok": True, "path": str(executable), "version": get_version(executable)}, indent=2))
         return 0
 
-    result = compare_structures(
-        args.mobile,
-        args.reference,
-        usalign_bin=args.usalign_bin,
-        assembly_selection=args.assembly,
-        manual_chain_mapping=args.chain_map or None,
-        timeout=args.timeout,
-    )
+    try:
+        result = compare_structures(
+            args.mobile,
+            args.reference,
+            usalign_bin=args.usalign_bin,
+            assembly_selection=args.assembly,
+            manual_chain_mapping=args.chain_map or None,
+            timeout=args.timeout,
+        )
+    except USAlignTimeoutError as error:
+        print(json.dumps({"ok": False, "error": str(error)}, indent=2), file=sys.stderr)
+        return 2
     paths = write_bundle(result, args.mobile, args.reference, args.output)
     print(
         json.dumps(

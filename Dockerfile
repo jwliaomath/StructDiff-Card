@@ -18,7 +18,8 @@ FROM python:3.12-slim-bookworm AS runtime
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    USALIGN_BIN=/usr/local/bin/USalign
+    USALIGN_BIN=/usr/local/bin/USalign \
+    STRUCTDIFF_TIMEOUT_SECONDS=1800
 
 WORKDIR /app
 COPY pyproject.toml README.md LICENSE THIRD_PARTY_NOTICES.md ./

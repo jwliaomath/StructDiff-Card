@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "structdiff-card"
-version = "0.3.0"
+version = "0.4.0"
 description = "Local-first multi-chain structure comparison with contact, motion, and spatial difference maps powered by US-align."
 readme = "README.md"
 requires-python = ">=3.10"

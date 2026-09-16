@@ -2,7 +2,7 @@
 headless = true
 address = "0.0.0.0"
 port = 8501
-maxUploadSize = 25
+maxUploadSize = 100
 enableXsrfProtection = true
 
 [browser]

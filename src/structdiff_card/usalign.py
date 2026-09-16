@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .models import ChainAlignment, ScoreSummary, Transform
+from .settings import DEFAULT_TIMEOUT_SECONDS, subprocess_timeout
 
 _NAME_1 = re.compile(r"Name of Structure_1:\s*(.+?)\s*\(to be superimposed")
 _NAME_2 = re.compile(r"Name of Structure_2:\s*(.+)")
@@ -32,6 +33,17 @@ class ParsedUSAlign:
     transform: Transform
     chain_alignments: list[ChainAlignment]
     raw_stdout: str
+
+
+class USAlignTimeoutError(TimeoutError):
+    """Raised when US-align exceeds the user-selected runtime limit."""
+
+    def __init__(self, timeout_seconds: int) -> None:
+        self.timeout_seconds = timeout_seconds
+        super().__init__(
+            f"US-align did not finish within {timeout_seconds} seconds. "
+            "Increase the timeout for large complexes, or set it to 0 for no time limit."
+        )
 
 
 def locate_usalign(explicit: str | Path | None = None) -> Path:
@@ -181,7 +193,7 @@ def run_usalign(
     executable: str | Path | None = None,
     assembly_selection: str = "asymmetric",
     manual_chain_mapping: list[tuple[str, str]] | None = None,
-    timeout: int = 120,
+    timeout: int | None = DEFAULT_TIMEOUT_SECONDS,
 ) -> tuple[ParsedUSAlign, str, list[str]]:
     binary = locate_usalign(executable)
     is_multichain = len(mobile_chain_ids) > 1 or len(reference_chain_ids) > 1
@@ -219,14 +231,19 @@ def run_usalign(
             )
             command.extend(["-chainmap", str(chainmap_path)])
 
-        completed = subprocess.run(
-            command,
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-            shell=False,
-        )
+        process_timeout = subprocess_timeout(timeout)
+        try:
+            completed = subprocess.run(
+                command,
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=process_timeout,
+                shell=False,
+            )
+        except subprocess.TimeoutExpired as error:
+            assert process_timeout is not None
+            raise USAlignTimeoutError(process_timeout) from error
         if completed.returncode != 0 or not matrix_path.exists():
             detail = (completed.stderr or completed.stdout).strip()
             raise RuntimeError(f"US-align failed (exit {completed.returncode}): {detail}")

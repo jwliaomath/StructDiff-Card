@@ -8,6 +8,10 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_bundled_example_renders_without_exception() -> None:
     app = AppTest.from_file(str(ROOT / "app.py"), default_timeout=30).run()
     assert not app.exception
+    timeout_input = next(
+        item for item in app.number_input if item.label == "US-align timeout (seconds)"
+    )
+    assert timeout_input.value == 1800
 
     example_button = next(
         button for button in app.button if button.label.startswith("Load 2HHB")

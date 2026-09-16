@@ -8,6 +8,7 @@ from pathlib import Path
 from .advanced import cluster_spatial_patches, decompose_chain_motion, summarize_contact_changes
 from .difference import summarize_differences
 from .models import AlignmentResult, ChainAlignment, ResidueMapping
+from .settings import DEFAULT_TIMEOUT_SECONDS
 from .structure import RepresentativeResidue, read_structure
 from .usalign import run_usalign
 
@@ -134,7 +135,7 @@ def compare_structures(
     usalign_bin: str | Path | None = None,
     assembly_selection: str = "asymmetric",
     manual_chain_mapping: list[tuple[str, str]] | None = None,
-    timeout: int = 120,
+    timeout: int | None = DEFAULT_TIMEOUT_SECONDS,
 ) -> AlignmentResult:
     """Compare two structures with one global US-align transform.
 
@@ -218,7 +219,7 @@ def compare_structures(
     )
 
     return AlignmentResult(
-        project_version="0.3.0",
+        project_version="0.4.0",
         engine="US-align",
         engine_version=engine_version,
         mode="multichain" if max(len(mobile_info.chain_ids), len(reference_info.chain_ids)) > 1 else "monomer",

@@ -12,6 +12,10 @@ US-align identifies both chain and residue correspondence and returns a rigid
 transform that moves Structure 1 into Structure 2's reference frame. Protein
 C-alpha and nucleic-acid C3-prime atoms are the default representative anchors.
 
+The default US-align runtime limit is 1800 seconds. A web or CLI value of `0` disables
+the limit for large local jobs. `STRUCTDIFF_TIMEOUT_SECONDS` changes the initial web
+and CLI default; a timed-out process is terminated without producing a partial result.
+
 ## How displacement is calculated
 
 For every residue pair in each mapped chain alignment:

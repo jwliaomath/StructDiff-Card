@@ -8,6 +8,8 @@ import streamlit as st
 
 from structdiff_card.analysis import compare_structures
 from structdiff_card.export import write_bundle
+from structdiff_card.settings import DEFAULT_TIMEOUT_SECONDS, configured_timeout_seconds
+from structdiff_card.usalign import USAlignTimeoutError
 from structdiff_card.visuals import (
     contact_change_figure,
     displacement_figure,
@@ -18,6 +20,13 @@ from structdiff_card.visuals import (
 
 ROOT = Path(__file__).resolve().parent
 EXAMPLES = ROOT / "examples" / "input"
+
+timeout_config_warning: str | None = None
+try:
+    configured_timeout = configured_timeout_seconds()
+except ValueError as error:
+    configured_timeout = DEFAULT_TIMEOUT_SECONDS
+    timeout_config_warning = f"{error}; using {DEFAULT_TIMEOUT_SECONDS} seconds instead."
 
 st.set_page_config(
     page_title="StructDiff Card",
@@ -97,11 +106,18 @@ def run_analysis(
     reference_name: str,
     assembly: str,
     mapping_text: str,
+    timeout_seconds: int | None = 1800,
 ) -> None:
     with tempfile.TemporaryDirectory(prefix="structdiff-ui-") as temp_dir:
         temp = Path(temp_dir)
-        mobile_path = temp / Path(mobile_name).name
-        reference_path = temp / Path(reference_name).name
+        # Uploads commonly share a basename (e.g. two training runs' 10.pdb).
+        # Separate input roles so writing the reference cannot replace mobile.
+        mobile_dir = temp / "mobile_input"
+        reference_dir = temp / "reference_input"
+        mobile_dir.mkdir()
+        reference_dir.mkdir()
+        mobile_path = mobile_dir / Path(mobile_name).name
+        reference_path = reference_dir / Path(reference_name).name
         mobile_path.write_bytes(mobile_bytes)
         reference_path.write_bytes(reference_bytes)
         result = compare_structures(
@@ -109,6 +125,7 @@ def run_analysis(
             reference_path,
             assembly_selection=assembly,
             manual_chain_mapping=parse_manual_mapping(mapping_text),
+            timeout=timeout_seconds,
         )
         output = temp / "result"
         files = write_bundle(result, mobile_path, reference_path, output)
@@ -144,6 +161,19 @@ with st.sidebar:
         placeholder="C:A,D:B",
         help="Leave blank for US-align automatic chain assignment.",
     )
+    with st.expander("Advanced settings"):
+        if timeout_config_warning:
+            st.warning(timeout_config_warning)
+        timeout_seconds = st.number_input(
+            "US-align timeout (seconds)",
+            min_value=0,
+            value=configured_timeout,
+            step=300,
+            help=(
+                "Default is 1800 seconds (30 minutes). Set to 0 to allow US-align to run "
+                "without a time limit."
+            ),
+        )
     analyze = st.button("Analyze structures", type="primary", width="stretch")
     example = st.button("Load 2HHB → 1HHO example", width="stretch")
 
@@ -160,7 +190,10 @@ with st.sidebar:
                         reference_upload.name,
                         assembly,
                         mapping_text,
+                        int(timeout_seconds),
                     )
+            except USAlignTimeoutError as error:
+                st.error(str(error))
             except Exception as error:  # noqa: BLE001 - UI boundary must display engine errors
                 st.exception(error)
     if example:
@@ -173,7 +206,10 @@ with st.sidebar:
                     "1HHO.pdb",
                     "asymmetric",
                     "",
+                    int(timeout_seconds),
                 )
+        except USAlignTimeoutError as error:
+            st.error(str(error))
         except Exception as error:  # noqa: BLE001 - UI boundary must display engine errors
             st.exception(error)
 

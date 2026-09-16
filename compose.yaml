@@ -4,8 +4,10 @@ services:
     image: structdiff-card:local
     ports:
       - "8501:8501"
+    environment:
+      STRUCTDIFF_TIMEOUT_SECONDS: "1800"
     read_only: true
     tmpfs:
-      - /tmp:size=256m,mode=1777
+      - /tmp:size=1g,mode=1777
     security_opt:
       - no-new-privileges:true
